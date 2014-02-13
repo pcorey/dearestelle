@@ -1,0 +1,76 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="specimen_files/specimen_stylesheet.css" type="text/css" charset="utf-8" />
+		<link rel="stylesheet" href="stylesheet.css" type="text/css" charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular-animate.min.js"></script>
+	</head>
+	<body ng-app="app" ng-controller="ctrl">
+		<div class="">
+			<img ng-repeat="image in images" ng-src="{{image.src}}" class="mask" randomize>
+		</div>
+		<p>Will you be my<br/><br/><b>Valentine?</b></p>
+			<script>
+				angular.module("app", ['ngAnimate']);
+
+				angular.module("app").directive('randomize', function($timeout) {
+					return {
+						link: function(scope, element, attrs) {
+							element = element[0];
+							function randomizePos() {
+								var maxX = (window.innerWidth) / 1.5;
+								var maxY = (window.innerHeight) / 1.5 ;
+
+								var middleX = Math.floor(window.innerWidth / 2);
+								var middleY = Math.floor(window.innerHeight / 2);
+
+								element.style.left = middleX + Math.floor(Math.random() * maxX - maxX ) + 'px';
+								element.style.top = middleY + Math.floor(Math.random() * maxY - maxY ) + 'px';
+								element.style.size = Math.max(5, Math.floor(Math.random() * 30)) + '%';
+								element.style.webkitTransform = 'rotate(' + Math.floor(Math.random() * 80 - 40) + 'deg)';
+								element.style.zIndex = Math.ceil(Math.random()*12);
+							}
+							randomizePos();
+							$timeout(function timeout() {
+								randomizePos();
+								$timeout(timeout, 5000);
+							},5000);
+							
+						}
+					}
+				});
+
+				angular.module("app").controller('ctrl', function ($scope, $timeout) {
+					$scope.cannon = [
+						{src: 'img/1.jpg'},
+						{src: 'img/2.jpg'},
+						{src: 'img/3.jpg'},
+						{src: 'img/4.jpg'},
+						{src: 'img/5.jpg'},
+						{src: 'img/6.jpg'},
+						{src: 'img/7.jpg'},
+						{src: 'img/8.jpg'},
+						{src: 'img/9.jpg'},
+						// {src: 'img/10.jpg'},
+						// {src: 'img/11.jpg'},
+						// {src: 'img/12.jpg'},
+						// {src: 'img/13.jpg'},
+						{src: 'img/14.jpg'},
+						{src: 'img/15.jpg'},
+						// {src: 'img/16.jpg'},
+						// {src: 'img/17.jpg'},
+						// {src: 'img/18.jpg'},
+						// {src: 'img/19.jpg'},
+						{src: 'img/20.jpg'},
+					];
+
+					$scope.images = angular.copy($scope.cannon);
+					/*$timeout(function swap() {
+						$scope.images = angular.copy($scope.cannon);
+						$timeout(swap, 5000);
+					}, 5000);*/
+				});
+			</script>
+	</body>
+</html>
