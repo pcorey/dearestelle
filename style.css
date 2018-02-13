@@ -30,6 +30,7 @@ b {
 
 img {
 	position: absolute;
+  max-width: 500px;
 	-webkit-transition: 1s ease-in-out all;
   	transition: 1s ease-in-out all;
 }
